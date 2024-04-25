@@ -1,15 +1,27 @@
 ---
 
-- include: install.yml
-  tags: [pgbouncer, pgbouncer-install]
+- name: Include install tasks
+  include_tasks: install.yml
+  tags: 
+    - pgbouncer
+    - pgbouncer-install
 
-- include: configure.yml
-  tags: [pgbouncer, pgbouncer-configure]
+- name: Include configure tasks
+  include_tasks: configure.yml
+  tags:
+    - pgbouncer
+    - pgbouncer-configure
 
-- include: monit.yml
+- name: Include monit tasks conditionally
+  include_tasks: monit.yml
   when: monit_protection is defined and monit_protection == true
-  tags: [pgbouncer, pgbouncer-monit]
+  tags:
+    - pgbouncer
+    - pgbouncer-monit
 
-- include: collectd.yml
+- name: Include collectd tasks conditionally
+  include_tasks: collectd.yml
   when: collectd_monitoring is defined and collectd_monitoring == true
-  tags: [pgbouncer, pgbouncer-collectd]
+  tags:
+    - pgbouncer
+    - pgbouncer-collectd
